@@ -267,7 +267,7 @@ public class CopyArchiverPublisher extends Notifier implements Serializable {
                 int numCopied = 0;
 
                 for (ArchivedJobEntry archivedJobEntry : archivedJobList) {
-                    AbstractProject selectedProject = (AbstractProject) Hudson.getInstance().getItem(archivedJobEntry.getJobName());
+                    AbstractProject selectedProject = Hudson.getInstance().getItem(archivedJobEntry.getJobName(), build.getProject().getParent(), AbstractProject.class);
 
                     FilePathArchiver lastSuccessfulDirFilePathArchiver;
                     if (isSameProject(project, selectedProject)) {
