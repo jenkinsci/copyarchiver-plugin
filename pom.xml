@@ -2,17 +2,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jvnet.hudson.plugins</groupId>
+        <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.355</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.406</version>
+        <relativePath></relativePath>
     </parent>
 
     <artifactId>copyarchiver</artifactId>
     <packaging>hpi</packaging>
-    <name>Hudson Copy Archiver Plug-in</name>
+    <name>Jenkins Copy Archiver Plug-in</name>
     <version>0.5.2-SNAPSHOT</version>
-    <url>http://wiki.hudson-ci.org/display/HUDSON/CopyArchiver+Plugin</url>
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/CopyArchiver+Plugin</url>
 
     <licenses>
         <license>
@@ -36,7 +36,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jvnet.hudson.main</groupId>
+            <groupId>org.jenkins-ci.main</groupId>
             <artifactId>maven-plugin</artifactId>
         </dependency>
     </dependencies>
@@ -63,7 +63,7 @@
 
         <plugins>
             <plugin>
-                <groupId>org.jvnet.hudson.tools</groupId>
+                <groupId>org.jenkins-ci.tools</groupId>
                 <artifactId>maven-hpi-plugin</artifactId>
                 <configuration>
                     <disabledTestInjection>true</disabledTestInjection>
@@ -71,4 +71,33 @@
             </plugin>
         </plugins>
     </build>
+
+  <distributionManagement>
+    <repository>
+      <id>maven.jenkins-ci.org</id>
+      <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
+
+  <scm>
+    <connection>scm:git:git://github.com/jenkinsci/copyarchiver-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/copyarchiver-plugin.git</developerConnection>
+    <url>http://github.com/jenkinsci/copyarchiver-plugin</url>
+  </scm>
+
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
+
+
