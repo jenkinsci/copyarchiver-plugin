@@ -36,6 +36,7 @@ import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Notifier;
 import hudson.tasks.Publisher;
 import hudson.util.FormValidation;
+import jenkins.MasterToSlaveFileCallable;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
@@ -225,7 +226,7 @@ public class CopyArchiverPublisher extends Notifier implements Serializable {
 
                 final FilePath destDirFilePath = new FilePath(new File(filterField(build, listener, sharedDirectoryPath)));
                 final boolean isMatrixExcutorProject = MatrixConfiguration.class.isAssignableFrom(project.getClass());
-                Boolean result = build.getWorkspace().act(new FilePath.FileCallable<Boolean>() {
+                Boolean result = build.getWorkspace().act(new MasterToSlaveFileCallable<Boolean>() {
                     public Boolean invoke(File f, VirtualChannel channel) throws IOException {
 
                         try {
