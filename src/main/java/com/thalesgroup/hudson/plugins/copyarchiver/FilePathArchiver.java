@@ -32,6 +32,7 @@ import hudson.remoting.Future;
 import hudson.remoting.Pipe;
 import hudson.remoting.VirtualChannel;
 import hudson.util.IOException2;
+import jenkins.MasterToSlaveFileCallable;
 import org.apache.commons.io.IOUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -77,7 +78,7 @@ public class FilePathArchiver implements Serializable {
     public int copyRecursiveTo(final boolean flatten, final String fileMask, final String excludes, final FilePath target) throws IOException, InterruptedException {
         if (filePath.getChannel() == target.getChannel()) {
             // local to local copy.
-            return filePath.act(new FileCallable<Integer>() {
+            return filePath.act(new MasterToSlaveFileCallable<Integer>() {
                 public Integer invoke(File base, VirtualChannel channel) throws IOException {
                     if (!base.exists()) return 0;
                     assert target.getChannel() == null;
@@ -104,7 +105,7 @@ public class FilePathArchiver implements Serializable {
 
             //final FilePath targetTemp = new FilePath(Util.createTempDir());
 
-            Future<Integer> future = filePath.actAsync(new FileCallable<Integer>() {
+            Future<Integer> future = filePath.actAsync(new MasterToSlaveFileCallable<Integer>() {
                 public Integer invoke(File f, VirtualChannel channel) throws IOException {
                     try {
                         return writeToTar(f, fileMask, excludes, TarCompression.GZIP.compress(pipe.getOut()));
